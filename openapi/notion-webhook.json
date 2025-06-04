@@ -125,8 +125,10 @@
                       }
                     },
                     "next_cursor": {
-                      "type": "string",
-                      "nullable": true
+                      "type": [
+                        "string",
+                        "null"
+                      ]
                     },
                     "has_more": {
                       "type": "boolean"
