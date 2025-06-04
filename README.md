@@ -17,12 +17,22 @@ Custom GPT ──► (OpenAPI Action) ──► n8n Web‑hook ──► Functi
 
 ### ✨ Current Endpoints
 
-| Path          | Verb     | Purpose                                                                                     |
-| ------------- | -------- | ------------------------------------------------------------------------------------------- |
-| `/getDB`      | **GET**  | Fetch database meta by `database_id` query param                                            |
-| `/queryDB`    | **POST** | Complex database query.  **All user params MUST be nested under a top‑level `body` object** |
-| `/createPage` | **POST** | Create a page inside a database. Payload shape identical to Notion’s but wrapped in `body`  |
 
+| Path | Verb | Purpose |
+| ----- | ----- | ------- |
+| `/appendBlockChildren` | **PATCH** | Append blocks to a container block |
+| `/createDatabase` | **POST** | Create a new database under a parent page |
+| `/createPage` | **POST** | Create a page inside a database. Payload shape identical to Notion’s but wrapped in `body` |
+| `/deleteBlock` | **DELETE** | Move a block to the trash |
+| `/getBlock` | **GET** | Retrieve a single block by `block_id` query param |
+| `/getBlockChildren` | **GET** | Fetch children blocks for a container block |
+| `/getDB` | **GET** | Fetch database meta by `database_id` query param |
+| `/getPage` | **GET** | Retrieve page details by `page_id` query param |
+| `/queryDB` | **POST** | Complex database query.  **All user params MUST be nested under a top‑level `body` object** |
+| `/search` | **POST** | Search across pages and databases |
+| `/updateBlock` | **PATCH** | Update block content or archived state |
+| `/updateDatabase` | **PATCH** | Update database title or properties |
+| `/updatePage` | **PATCH** | Update page properties or archived state |
 > **IMPORTANT RULES**
 >
 > 1. *Do not* change existing paths. They are the contract expected by n8n.
