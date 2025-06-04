@@ -207,6 +207,110 @@
           }
         }
       }
+    },
+    "/getPage": {
+      "get": {
+        "summary": "Retrieve a Notion-style page by ID",
+        "operationId": "getPage",
+        "x-openai-isConsequential": false,
+        "x-openai-requiresUserConfirmation": false,
+        "parameters": [
+          {
+            "name": "page_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Page details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "properties": {
+                      "type": "object",
+                      "description": "Page properties"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid page_id or structure"
+          }
+        }
+      }
+    },
+    "/updatePage": {
+      "post": {
+        "summary": "Update a Notion-style page (nested under 'body')",
+        "operationId": "updatePage",
+        "x-openai-isConsequential": false,
+        "x-openai-requiresUserConfirmation": false,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["page_id", "body"],
+                "properties": {
+                  "page_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "body": {
+                    "type": "object",
+                    "properties": {
+                      "properties": {
+                        "type": "object",
+                        "description": "Properties to update"
+                      },
+                      "archived": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated page details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "page_id": {
+                      "type": "string"
+                    },
+                    "properties": {
+                      "type": "object",
+                      "description": "Updated page properties"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request or structure"
+          }
+        }
+      }
     }
   }
 }
