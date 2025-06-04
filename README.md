@@ -19,9 +19,11 @@ Custom GPT ──► (OpenAPI Action) ──► n8n Web‑hook ──► Functi
 
 | Path          | Verb     | Purpose                                                                                     |
 | ------------- | -------- | ------------------------------------------------------------------------------------------- |
-| `/getDB`      | **GET**  | Fetch database meta by `database_id` query param                                            |
+| `/createPage` | **POST** | Create a page inside a database. Payload shape identical to Notion’s but wrapped in `body` |
+| `/getDB`      | **GET**  | Fetch database meta by `database_id` query param |
+| `/getPage`    | **GET**  | Retrieve a page by `page_id` query param |
 | `/queryDB`    | **POST** | Complex database query.  **All user params MUST be nested under a top‑level `body` object** |
-| `/createPage` | **POST** | Create a page inside a database. Payload shape identical to Notion’s but wrapped in `body`  |
+| `/updatePage` | **POST** | Update page properties. Payload must be wrapped in `body` |
 
 > **IMPORTANT RULES**
 >
