@@ -125,10 +125,10 @@
                       }
                     },
                     "next_cursor": {
-                      "type": "string",
-                      "nullable": true
-                    },
-                    "has_more": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
                       "type": "boolean"
                     }
                   }
