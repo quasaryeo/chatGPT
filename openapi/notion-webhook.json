@@ -438,15 +438,44 @@
                     "type": "string"
                   },
                   "body": {
-                    "type": "object",
-                    "properties": {
-                      "archived": {
-                        "type": "boolean"
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "archived": {
+                            "type": "boolean"
+                          },
+                          "text": {
+                            "type": "object"
+                          },
+                          "type": {
+                            "const": "text"
+                          }
+                        },
+                        "required": [
+                          "text",
+                          "type"
+                        ],
+                        "type": "object"
                       },
-                      "type": {
-                        "type": "string"
+                      {
+                        "properties": {
+                          "archived": {
+                            "type": "boolean"
+                          },
+                          "to_do": {
+                            "type": "object"
+                          },
+                          "type": {
+                            "const": "to_do"
+                          }
+                        },
+                        "required": [
+                          "to_do",
+                          "type"
+                        ],
+                        "type": "object"
                       }
-                    }
+                    ]
                   }
                 }
               }
