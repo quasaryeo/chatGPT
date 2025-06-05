@@ -44,19 +44,24 @@ Custom GPT ──► (OpenAPI Action) ──► n8n Web‑hook ──► Functi
 1. Clone repo & install dev tools
 
    ```bash
-   npm install          # prettier / openapi‑cli / husky hooks
+   npm install          # openapi-cli, prettier, markdownlint
    ```
 2. Validate the specification
 
    ```bash
    npm run lint:spec    # openapi-cli validate openapi/notion-webhook.json
    ```
-3. Format on save
+3. Lint Markdown
+
+   ```bash
+   npm run lint:md      # markdownlint '**/*.md'
+   ```
+4. Format on save
 
    ```bash
    npm run format       # prettier --write .
    ```
-4. Add tests (optional)
+5. Add tests (optional)
 
    ```bash
    npm test             # jest specs validating example payloads

@@ -1,0 +1,18 @@
+{
+  "author": "",
+  "description": "Custom GPT webhook to Notion API via n8n",
+  "devDependencies": {
+    "@redocly/openapi-cli": "^1.0.0-beta.95",
+    "markdownlint-cli": "^0.45.0",
+    "prettier": "^3.5.3"
+  },
+  "license": "ISC",
+  "name": "chatgpt",
+  "scripts": {
+    "lint:md": "markdownlint '**/*.md'",
+    "lint:spec": "openapi lint openapi/notion-webhook.json",
+    "test": "echo 'No tests specified'"
+  },
+  "type": "commonjs",
+  "version": "1.0.0"
+}
