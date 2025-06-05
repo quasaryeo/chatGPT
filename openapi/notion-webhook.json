@@ -1,5 +1,8 @@
 {
   "info": {
+    "contact": {
+      "email": "support@example.com"
+    },
     "description": "Modified to support n8n Webhook parsing. All parameters are wrapped in a 'body' object.",
     "title": "Notion Custom API (Body Nested)",
     "version": "1.0.2"
@@ -368,12 +371,16 @@
                     "has_more": {
                       "type": "boolean"
                     },
-                    "next_cursor": {
-                      "type": [
-                        "string",
-                        "null"
-                      ]
-                    },
+                      "next_cursor": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
                     "results": {
                       "items": {
                         "type": "object"
@@ -442,22 +449,25 @@
           "content": {
             "application/json": {
               "schema": {
-                "properties": {
-                  "body": {
-                    "properties": {
-                      "archived": {
-                        "type": "boolean"
-                      },
-                      "type": {
-                        "type": "string"
-                      }
+                  "properties": {
+                    "block_id": {
+                      "type": "string"
                     },
-                    "type": "object"
+                    "body": {
+                      "properties": {
+                        "archived": {
+                          "type": "boolean"
+                        },
+                        "type": {
+                          "enum": [
+                            "text",
+                            "to_do"
+                          ]
+                        }
+                      },
+                      "type": "object"
+                    }
                   },
-                  "block_id": {
-                    "type": "string"
-                  }
-                },
                 "required": [
                   "block_id",
                   "body"
