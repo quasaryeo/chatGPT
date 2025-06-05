@@ -1,55 +1,51 @@
 {
-  "openapi": "3.1.0",
   "info": {
-    "title": "Notion Custom API (Body Nested)",
     "description": "Modified to support n8n Webhook parsing. All parameters are wrapped in a 'body' object.",
+    "title": "Notion Custom API (Body Nested)",
     "version": "1.0.2"
   },
-  "servers": [
-    {
-      "url": "https://qylabn8n.duckdns.org/webhook",
-      "description": "Main API server"
-    }
-  ],
+  "openapi": "3.1.0",
   "paths": {
     "/appendBlockChildren": {
       "patch": {
-        "summary": "Append block children",
         "description": "Append one or more blocks to an existing container block.",
         "operationId": "appendBlockChildren",
-        "x-openai-isConsequential": false,
-        "x-openai-requiresUserConfirmation": false,
         "requestBody": {
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "required": ["block_id", "body"],
                 "properties": {
-                  "block_id": {
-                    "type": "string"
-                  },
                   "body": {
-                    "type": "object",
-                    "required": ["children"],
                     "properties": {
                       "after": {
-                        "type": "string",
-                        "description": "ID of an existing child to insert after"
+                        "description": "ID of an existing child to insert after",
+                        "type": "string"
                       },
                       "children": {
-                        "type": "array",
                         "items": {
                           "type": "object"
-                        }
+                        },
+                        "type": "array"
                       }
-                    }
+                    },
+                    "required": [
+                      "children"
+                    ],
+                    "type": "object"
+                  },
+                  "block_id": {
+                    "type": "string"
                   }
-                }
+                },
+                "required": [
+                  "block_id",
+                  "body"
+                ],
+                "type": "object"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
@@ -58,46 +54,52 @@
           "400": {
             "description": "Invalid request"
           }
-        }
+        },
+        "summary": "Append block children",
+        "x-openai-isConsequential": false,
+        "x-openai-requiresUserConfirmation": false
       }
     },
     "/createDatabase": {
       "post": {
-        "summary": "Create a database",
         "description": "Create a new database under a parent page.",
         "operationId": "createDatabase",
-        "x-openai-isConsequential": false,
-        "x-openai-requiresUserConfirmation": false,
         "requestBody": {
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "required": ["parent_page_id", "body"],
                 "properties": {
-                  "parent_page_id": {
-                    "type": "string"
-                  },
                   "body": {
-                    "type": "object",
-                    "required": ["title", "properties"],
                     "properties": {
                       "properties": {
                         "type": "object"
                       },
                       "title": {
-                        "type": "array",
                         "items": {
                           "type": "object"
-                        }
+                        },
+                        "type": "array"
                       }
-                    }
+                    },
+                    "required": [
+                      "title",
+                      "properties"
+                    ],
+                    "type": "object"
+                  },
+                  "parent_page_id": {
+                    "type": "string"
                   }
-                }
+                },
+                "required": [
+                  "parent_page_id",
+                  "body"
+                ],
+                "type": "object"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
@@ -106,48 +108,53 @@
           "400": {
             "description": "Invalid request"
           }
-        }
+        },
+        "summary": "Create a database",
+        "x-openai-isConsequential": false,
+        "x-openai-requiresUserConfirmation": false
       }
     },
     "/createPage": {
       "post": {
-        "summary": "Create a Notion-style page in a database (nested under 'body')",
         "operationId": "createPage",
-        "x-openai-isConsequential": false,
-        "x-openai-requiresUserConfirmation": false,
         "requestBody": {
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "required": ["database_id", "body"],
                 "properties": {
-                  "database_id": {
-                    "type": "string",
-                    "format": "uuid"
-                  },
                   "body": {
-                    "type": "object",
-                    "required": ["properties"],
                     "properties": {
                       "children": {
-                        "type": "array",
                         "description": "Optional array of block children to include under the page",
                         "items": {
                           "type": "object"
-                        }
+                        },
+                        "type": "array"
                       },
                       "properties": {
-                        "type": "object",
-                        "description": "Mapping of database property names to values for the new page"
+                        "description": "Mapping of database property names to values for the new page",
+                        "type": "object"
                       }
-                    }
+                    },
+                    "required": [
+                      "properties"
+                    ],
+                    "type": "object"
+                  },
+                  "database_id": {
+                    "format": "uuid",
+                    "type": "string"
                   }
-                }
+                },
+                "required": [
+                  "database_id",
+                  "body"
+                ],
+                "type": "object"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
@@ -156,20 +163,20 @@
           "400": {
             "description": "Invalid request"
           }
-        }
+        },
+        "summary": "Create a Notion-style page in a database (nested under 'body')",
+        "x-openai-isConsequential": false,
+        "x-openai-requiresUserConfirmation": false
       }
     },
     "/deleteBlock": {
       "delete": {
-        "summary": "Delete a block",
         "description": "Move a block to the trash in Notion.",
         "operationId": "deleteBlock",
-        "x-openai-isConsequential": false,
-        "x-openai-requiresUserConfirmation": false,
         "parameters": [
           {
-            "name": "block_id",
             "in": "query",
+            "name": "block_id",
             "required": true,
             "schema": {
               "type": "string"
@@ -183,19 +190,19 @@
           "400": {
             "description": "Invalid block_id"
           }
-        }
+        },
+        "summary": "Delete a block",
+        "x-openai-isConsequential": false,
+        "x-openai-requiresUserConfirmation": false
       }
     },
     "/getBlock": {
       "get": {
-        "summary": "Retrieve a block by ID",
         "operationId": "getBlock",
-        "x-openai-isConsequential": false,
-        "x-openai-requiresUserConfirmation": false,
         "parameters": [
           {
-            "name": "block_id",
             "in": "query",
+            "name": "block_id",
             "required": true,
             "schema": {
               "type": "string"
@@ -209,19 +216,19 @@
           "400": {
             "description": "Invalid block_id"
           }
-        }
+        },
+        "summary": "Retrieve a block by ID",
+        "x-openai-isConsequential": false,
+        "x-openai-requiresUserConfirmation": false
       }
     },
     "/getBlockChildren": {
       "get": {
-        "summary": "Retrieve block children",
         "operationId": "getBlockChildren",
-        "x-openai-isConsequential": false,
-        "x-openai-requiresUserConfirmation": false,
         "parameters": [
           {
-            "name": "block_id",
             "in": "query",
+            "name": "block_id",
             "required": true,
             "schema": {
               "type": "string"
@@ -235,23 +242,23 @@
           "400": {
             "description": "Invalid block_id"
           }
-        }
+        },
+        "summary": "Retrieve block children",
+        "x-openai-isConsequential": false,
+        "x-openai-requiresUserConfirmation": false
       }
     },
     "/getDB": {
       "get": {
-        "summary": "Retrieve a Notion-style database by ID",
         "operationId": "getDB",
-        "x-openai-isConsequential": false,
-        "x-openai-requiresUserConfirmation": false,
         "parameters": [
           {
-            "name": "database_id",
             "in": "query",
+            "name": "database_id",
             "required": true,
             "schema": {
-              "type": "string",
-              "format": "uuid"
+              "format": "uuid",
+              "type": "string"
             }
           }
         ],
@@ -262,19 +269,19 @@
           "400": {
             "description": "Invalid database_id or structure"
           }
-        }
+        },
+        "summary": "Retrieve a Notion-style database by ID",
+        "x-openai-isConsequential": false,
+        "x-openai-requiresUserConfirmation": false
       }
     },
     "/getPage": {
       "get": {
-        "summary": "Retrieve a page by ID",
         "operationId": "getPage",
-        "x-openai-isConsequential": false,
-        "x-openai-requiresUserConfirmation": false,
         "parameters": [
           {
-            "name": "page_id",
             "in": "query",
+            "name": "page_id",
             "required": true,
             "schema": {
               "type": "string"
@@ -288,74 +295,75 @@
           "400": {
             "description": "Invalid page_id"
           }
-        }
+        },
+        "summary": "Retrieve a page by ID",
+        "x-openai-isConsequential": false,
+        "x-openai-requiresUserConfirmation": false
       }
     },
     "/queryDB": {
       "post": {
-        "summary": "Query a Notion-style database (nested under 'body')",
         "operationId": "queryDB",
-        "x-openai-isConsequential": false,
-        "x-openai-requiresUserConfirmation": false,
         "requestBody": {
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "required": ["database_id", "body"],
                 "properties": {
-                  "database_id": {
-                    "type": "string",
-                    "format": "uuid"
-                  },
                   "body": {
-                    "type": "object",
                     "properties": {
                       "filter": {
-                        "type": "object",
-                        "description": "Compound filter using and/or logic"
+                        "description": "Compound filter using and/or logic",
+                        "type": "object"
                       },
                       "page_size": {
-                        "type": "integer",
                         "default": 100,
-                        "maximum": 100
+                        "maximum": 100,
+                        "type": "integer"
                       },
                       "sorts": {
-                        "type": "array",
                         "items": {
-                          "type": "object",
                           "properties": {
                             "direction": {
-                              "type": "string",
                               "enum": [
                                 "ascending",
                                 "descending"
-                              ]
+                              ],
+                              "type": "string"
                             },
                             "property": {
                               "type": "string"
                             }
-                          }
-                        }
+                          },
+                          "type": "object"
+                        },
+                        "type": "array"
                       },
                       "start_cursor": {
                         "type": "string"
                       }
-                    }
+                    },
+                    "type": "object"
+                  },
+                  "database_id": {
+                    "format": "uuid",
+                    "type": "string"
                   }
-                }
+                },
+                "required": [
+                  "database_id",
+                  "body"
+                ],
+                "type": "object"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
-            "description": "Query results",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
                   "properties": {
                     "has_more": {
                       "type": "boolean"
@@ -367,48 +375,52 @@
                       ]
                     },
                     "results": {
-                      "type": "array",
                       "items": {
                         "type": "object"
-                      }
+                      },
+                      "type": "array"
                     }
-                  }
+                  },
+                  "type": "object"
                 }
               }
-            }
+            },
+            "description": "Query results"
           },
           "400": {
             "description": "Invalid request or structure"
           }
-        }
+        },
+        "summary": "Query a Notion-style database (nested under 'body')",
+        "x-openai-isConsequential": false,
+        "x-openai-requiresUserConfirmation": false
       }
     },
     "/search": {
       "post": {
-        "summary": "Search pages and databases",
         "operationId": "search",
-        "x-openai-isConsequential": false,
-        "x-openai-requiresUserConfirmation": false,
         "requestBody": {
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "required": ["body"],
                 "properties": {
                   "body": {
-                    "type": "object",
                     "properties": {
                       "query": {
                         "type": "string"
                       }
-                    }
+                    },
+                    "type": "object"
                   }
-                }
+                },
+                "required": [
+                  "body"
+                ],
+                "type": "object"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
@@ -417,28 +429,21 @@
           "400": {
             "description": "Invalid request"
           }
-        }
+        },
+        "summary": "Search pages and databases",
+        "x-openai-isConsequential": false,
+        "x-openai-requiresUserConfirmation": false
       }
     },
     "/updateBlock": {
       "patch": {
-        "summary": "Update a block",
         "operationId": "updateBlock",
-        "x-openai-isConsequential": false,
-        "x-openai-requiresUserConfirmation": false,
         "requestBody": {
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "required": ["block_id", "body"],
                 "properties": {
-                  "block_id": {
-                    "type": "string"
-                  },
                   "body": {
-                    "type": "object",
                     "properties": {
                       "archived": {
                         "type": "boolean"
@@ -446,12 +451,22 @@
                       "type": {
                         "type": "string"
                       }
-                    }
+                    },
+                    "type": "object"
+                  },
+                  "block_id": {
+                    "type": "string"
                   }
-                }
+                },
+                "required": [
+                  "block_id",
+                  "body"
+                ],
+                "type": "object"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
@@ -460,44 +475,47 @@
           "400": {
             "description": "Invalid request"
           }
-        }
+        },
+        "summary": "Update a block",
+        "x-openai-isConsequential": false,
+        "x-openai-requiresUserConfirmation": false
       }
     },
     "/updateDatabase": {
       "patch": {
-        "summary": "Update a database",
         "operationId": "updateDatabase",
-        "x-openai-isConsequential": false,
-        "x-openai-requiresUserConfirmation": false,
         "requestBody": {
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "required": ["database_id", "body"],
                 "properties": {
-                  "database_id": {
-                    "type": "string"
-                  },
                   "body": {
-                    "type": "object",
                     "properties": {
                       "properties": {
                         "type": "object"
                       },
                       "title": {
-                        "type": "array",
                         "items": {
                           "type": "object"
-                        }
+                        },
+                        "type": "array"
                       }
-                    }
+                    },
+                    "type": "object"
+                  },
+                  "database_id": {
+                    "type": "string"
                   }
-                }
+                },
+                "required": [
+                  "database_id",
+                  "body"
+                ],
+                "type": "object"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
@@ -506,28 +524,21 @@
           "400": {
             "description": "Invalid request"
           }
-        }
+        },
+        "summary": "Update a database",
+        "x-openai-isConsequential": false,
+        "x-openai-requiresUserConfirmation": false
       }
     },
     "/updatePage": {
       "patch": {
-        "summary": "Update a page",
         "operationId": "updatePage",
-        "x-openai-isConsequential": false,
-        "x-openai-requiresUserConfirmation": false,
         "requestBody": {
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "required": ["page_id", "body"],
                 "properties": {
-                  "page_id": {
-                    "type": "string"
-                  },
                   "body": {
-                    "type": "object",
                     "properties": {
                       "archived": {
                         "type": "boolean"
@@ -535,12 +546,22 @@
                       "properties": {
                         "type": "object"
                       }
-                    }
+                    },
+                    "type": "object"
+                  },
+                  "page_id": {
+                    "type": "string"
                   }
-                }
+                },
+                "required": [
+                  "page_id",
+                  "body"
+                ],
+                "type": "object"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
@@ -549,8 +570,17 @@
           "400": {
             "description": "Invalid request"
           }
-        }
+        },
+        "summary": "Update a page",
+        "x-openai-isConsequential": false,
+        "x-openai-requiresUserConfirmation": false
       }
     }
-  }
+  },
+  "servers": [
+    {
+      "description": "Main API server",
+      "url": "https://qylabn8n.duckdns.org/webhook"
+    }
+  ]
 }
