@@ -316,6 +316,73 @@
                     "properties": {
                       "filter": {
                         "description": "Compound filter using and/or logic",
+                        "example": {
+                          "or": [
+                            {
+                              "property": "In stock",
+                              "checkbox": {
+                                "equals": true
+                              }
+                            },
+                            {
+                              "property": "Cost of next trip",
+                              "number": {
+                                "greater_than_or_equal_to": 2
+                              }
+                            }
+                          ]
+                        },
+                        "properties": {
+                          "and": {
+                            "items": {
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "checkbox": {
+                            "properties": {
+                              "does_not_equal": {
+                                "type": "boolean"
+                              },
+                              "equals": {
+                                "type": "boolean"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "number": {
+                            "properties": {
+                              "does_not_equal": {
+                                "type": "number"
+                              },
+                              "equals": {
+                                "type": "number"
+                              },
+                              "greater_than": {
+                                "type": "number"
+                              },
+                              "greater_than_or_equal_to": {
+                                "type": "number"
+                              },
+                              "less_than": {
+                                "type": "number"
+                              },
+                              "less_than_or_equal_to": {
+                                "type": "number"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "or": {
+                            "items": {
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "property": {
+                            "type": "string"
+                          }
+                        },
                         "type": "object"
                       },
                       "page_size": {
