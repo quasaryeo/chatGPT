@@ -117,6 +117,65 @@
         "x-openai-requiresUserConfirmation": false
       }
     },
+    "/createFileUpload": {
+      "post": {
+        "description": "Create a file upload that can be attached to Notion blocks or pages.",
+        "operationId": "createFileUpload",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "body": {
+                    "properties": {
+                      "content_type": {
+                        "type": "string"
+                      },
+                      "external_url": {
+                        "type": "string"
+                      },
+                      "filename": {
+                        "type": "string"
+                      },
+                      "mode": {
+                        "type": "string"
+                      },
+                      "number_of_parts": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "mode",
+                      "filename",
+                      "content_type",
+                      "number_of_parts",
+                      "external_url"
+                    ],
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "body"
+                ],
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Created file upload details"
+          },
+          "400": {
+            "description": "Invalid request"
+          }
+        },
+        "summary": "Create a file upload",
+        "x-openai-isConsequential": false,
+        "x-openai-requiresUserConfirmation": false
+      }
+    },
     "/createPage": {
       "post": {
         "operationId": "createPage",

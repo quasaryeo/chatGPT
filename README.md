@@ -22,6 +22,7 @@ Custom GPT ──► (OpenAPI Action) ──► n8n Web‑hook ──► Functi
 | ----- | ----- | ------- |
 | `/appendBlockChildren` | **PATCH** | Append blocks to a container block |
 | `/createDatabase` | **POST** | Create a new database under a parent page |
+| `/createFileUpload` | **POST** | Create a file upload |
 | `/createPage` | **POST** | Create a page inside a database. Payload shape identical to Notion’s but wrapped in `body` |
 | `/deleteBlock` | **DELETE** | Move a block to the trash |
 | `/getBlock` | **GET** | Retrieve a single block by `block_id` query param |
