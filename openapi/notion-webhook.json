@@ -1,7 +1,7 @@
 {
   "info": {
     "contact": {
-      "email": "support@example.com"
+      "email": "quasar.yeo@gmail.com"
     },
     "description": "Modified to support n8n Webhook parsing. All parameters are wrapped in a 'body' object.",
     "title": "Notion Custom API (Body Nested)",
@@ -716,7 +716,7 @@
   "servers": [
     {
       "description": "Main API server",
-      "url": "https://qylabn8n.duckdns.org/webhook"
+      "url": "https://n8n.qylab.kr/webhook"
     }
   ]
 }
