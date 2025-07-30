@@ -75,18 +75,6 @@
                   "body": {
                     "properties": {
                       "properties": {
-                        "additionalProperties": true,
-                        "example": {
-                          "Name": {
-                            "title": [
-                              {
-                                "text": {
-                                  "content": "New DB title"
-                                }
-                              }
-                            ]
-                          }
-                        },
                         "type": "object"
                       },
                       "title": {
@@ -129,65 +117,6 @@
         "x-openai-requiresUserConfirmation": false
       }
     },
-    "/createFileUpload": {
-      "post": {
-        "description": "Create a file upload that can be attached to Notion blocks or pages.",
-        "operationId": "createFileUpload",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "properties": {
-                  "body": {
-                    "properties": {
-                      "content_type": {
-                        "type": "string"
-                      },
-                      "external_url": {
-                        "type": "string"
-                      },
-                      "filename": {
-                        "type": "string"
-                      },
-                      "mode": {
-                        "type": "string"
-                      },
-                      "number_of_parts": {
-                        "type": "integer"
-                      }
-                    },
-                    "required": [
-                      "mode",
-                      "filename",
-                      "content_type",
-                      "number_of_parts",
-                      "external_url"
-                    ],
-                    "type": "object"
-                  }
-                },
-                "required": [
-                  "body"
-                ],
-                "type": "object"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Created file upload details"
-          },
-          "400": {
-            "description": "Invalid request"
-          }
-        },
-        "summary": "Create a file upload",
-        "x-openai-isConsequential": false,
-        "x-openai-requiresUserConfirmation": false
-      }
-    },
     "/createPage": {
       "post": {
         "operationId": "createPage",
@@ -206,19 +135,7 @@
                         "type": "array"
                       },
                       "properties": {
-                        "additionalProperties": true,
                         "description": "Mapping of database property names to values for the new page",
-                        "example": {
-                          "Name": {
-                            "title": [
-                              {
-                                "text": {
-                                  "content": "Task A"
-                                }
-                              }
-                            ]
-                          }
-                        },
                         "type": "object"
                       }
                     },
@@ -704,18 +621,6 @@
                         "type": "boolean"
                       },
                       "properties": {
-                        "additionalProperties": true,
-                        "example": {
-                          "Name": {
-                            "title": [
-                              {
-                                "text": {
-                                  "content": "Updated title"
-                                }
-                              }
-                            ]
-                          }
-                        },
                         "type": "object"
                       }
                     },
@@ -752,7 +657,7 @@
   "servers": [
     {
       "description": "Main API server",
-      "url": "https://qylabn8n.duckdns.org/webhook"
+      "url": "https://n8n.qylab.kr/webhook"
     }
   ]
 }
