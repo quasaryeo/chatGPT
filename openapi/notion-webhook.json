@@ -75,6 +75,18 @@
                   "body": {
                     "properties": {
                       "properties": {
+                        "additionalProperties": true,
+                        "example": {
+                          "Name": {
+                            "title": [
+                              {
+                                "text": {
+                                  "content": "New DB title"
+                                }
+                              }
+                            ]
+                          }
+                        },
                         "type": "object"
                       },
                       "title": {
@@ -194,7 +206,19 @@
                         "type": "array"
                       },
                       "properties": {
+                        "additionalProperties": true,
                         "description": "Mapping of database property names to values for the new page",
+                        "example": {
+                          "Name": {
+                            "title": [
+                              {
+                                "text": {
+                                  "content": "Task A"
+                                }
+                              }
+                            ]
+                          }
+                        },
                         "type": "object"
                       }
                     },
@@ -680,6 +704,18 @@
                         "type": "boolean"
                       },
                       "properties": {
+                        "additionalProperties": true,
+                        "example": {
+                          "Name": {
+                            "title": [
+                              {
+                                "text": {
+                                  "content": "Updated title"
+                                }
+                              }
+                            ]
+                          }
+                        },
                         "type": "object"
                       }
                     },
