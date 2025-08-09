@@ -20,20 +20,20 @@ Custom GPT ──► (OpenAPI Action) ──► n8n Web‑hook ──► Functi
 
 | Path | Verb | Purpose |
 | ----- | ----- | ------- |
-| `/appendBlockChildren` | **PATCH** | Append blocks to a container block |
-| `/createDatabase` | **POST** | Create a new database under a parent page |
+| `/appendBlockChildren/{id}` | **PATCH** | Append blocks to a container block |
+| `/createDatabase/{id}` | **POST** | Create a new database under a parent page |
 | `/createFileUpload` | **POST** | Create a file upload |
-| `/createPage` | **POST** | Create a page inside a database. Payload shape identical to Notion’s but wrapped in `body` |
-| `/deleteBlock` | **DELETE** | Move a block to the trash |
-| `/getBlock` | **GET** | Retrieve a single block by `block_id` query param |
-| `/getBlockChildren` | **GET** | Fetch children blocks for a container block |
-| `/getDB` | **GET** | Fetch database meta by `database_id` query param |
-| `/getPage` | **GET** | Retrieve page details by `page_id` query param |
-| `/queryDB` | **POST** | Complex database query.  **All user params MUST be nested under a top‑level `body` object** |
+| `/createPage/{id}` | **POST** | Create a page inside a database. Payload shape identical to Notion’s but wrapped in `body` |
+| `/deleteBlock/{id}` | **DELETE** | Move a block to the trash |
+| `/getBlock/{id}` | **GET** | Retrieve a single block by path ID |
+| `/getBlockChildren/{id}` | **GET** | Fetch children blocks for a container block |
+| `/getDB/{id}` | **GET** | Fetch database meta by path ID |
+| `/getPage/{id}` | **GET** | Retrieve page details by path ID |
+| `/queryDB/{id}` | **POST** | Complex database query.  **All user params MUST be nested under a top‑level `body` object** |
 | `/search` | **POST** | Search across pages and databases |
-| `/updateBlock` | **PATCH** | Update block content or archived state |
-| `/updateDatabase` | **PATCH** | Update database title or properties |
-| `/updatePage` | **PATCH** | Update page properties or archived state |
+| `/updateBlock/{id}` | **PATCH** | Update block content or archived state |
+| `/updateDatabase/{id}` | **PATCH** | Update database title or properties |
+| `/updatePage/{id}` | **PATCH** | Update page properties or archived state |
 > **IMPORTANT RULES**
 >
 > 1. *Do not* change existing paths. They are the contract expected by n8n.
