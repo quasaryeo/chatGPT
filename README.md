@@ -23,13 +23,13 @@ Custom GPT ──► (OpenAPI Action) ──► n8n Web‑hook ──► Functi
 | `/appendBlockChildren` | **PATCH** | Append blocks to a container block |
 | `/createDatabase` | **POST** | Create a new database under a parent page |
 | `/createFileUpload` | **POST** | Create a file upload |
-| `/createPage` | **POST** | Create a page inside a database. Payload shape identical to Notion’s but wrapped in `body` |
+| `/createPage` | **POST** | Create a page inside a database |
 | `/deleteBlock` | **DELETE** | Move a block to the trash |
 | `/getBlock` | **GET** | Retrieve a single block by `block_id` query param |
 | `/getBlockChildren` | **GET** | Fetch children blocks for a container block |
 | `/getDB` | **GET** | Fetch database meta by `database_id` query param |
 | `/getPage` | **GET** | Retrieve page details by `page_id` query param |
-| `/queryDB` | **POST** | Complex database query.  **All user params MUST be nested under a top‑level `body` object** |
+| `/queryDB` | **POST** | Complex database query |
 | `/search` | **POST** | Search across pages and databases |
 | `/updateBlock` | **PATCH** | Update block content or archived state |
 | `/updateDatabase` | **PATCH** | Update database title or properties |
@@ -37,8 +37,8 @@ Custom GPT ──► (OpenAPI Action) ──► n8n Web‑hook ──► Functi
 > **IMPORTANT RULES**
 >
 > 1. *Do not* change existing paths. They are the contract expected by n8n.
-> 2. Parameters must stay wrapped under a single root object (`body`) so that the n8n Function node can consume them without extra parsing.
-> 3. New functionality **must follow the same wrapping convention** and live under the `/` root, *not* the original Notion URL schema (e.g. **never** `/databases/{id}/query`).
+> 2. Parameters are provided as a single JSON object with all fields at the top level so the n8n Function node can consume them without extra parsing.
+> 3. New functionality **must follow the same flattened structure** and live under the `/` root, *not* the original Notion URL schema (e.g. **never** `/databases/{id}/query`).
 
 ### 🛠 Local Development
 

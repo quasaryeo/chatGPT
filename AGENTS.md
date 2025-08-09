@@ -27,7 +27,7 @@ This file gives **OpenAI Codex** the exact rules it must follow when editing or
 ## 3. OpenAPI Contract Rules
 
 1. **Paths must remain as web‑hook routes**—never mirror original Notion REST paths.
-2. Every user‑supplied input **must be nested under a root `body` object** unless the parameter is a simple `query` string.
+2. Every user‑supplied input **must appear directly at the root of the request body** unless the parameter is a simple `query` string.
 3. Preserve existing `operationId` values.
 4. All new endpoints **require**:
 
@@ -62,7 +62,7 @@ Codex, when you execute shell commands, you **must** prepend them with `npm run`
 ## 6. Prohibited Actions
 
 * Do **NOT** rename or delete existing paths.
-* Do **NOT** unwrap `body` into top‑level parameters.
+* Do **NOT** wrap payload fields under a `body` object.
 * Do **NOT** change the `servers[0].url` unless explicitly instructed.
 * Do **NOT** bump `info.version` without updating changelog in PR description.
 
