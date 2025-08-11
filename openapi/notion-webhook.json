@@ -13,35 +13,173 @@
       "patch": {
         "description": "Append one or more blocks to an existing container block.",
         "operationId": "appendBlockChildren",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "properties": {
-                  "after": {
-                    "description": "ID of an existing child to insert after",
-                    "type": "string"
-                  },
-                  "block_id": {
-                    "type": "string"
-                  },
-                  "children": {
-                    "items": {
-                      "type": "object"
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "if": {
+                        "required": [
+                          "body_chunks"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "chunk_encoding"
+                        ]
+                      }
                     },
-                    "type": "array"
-                  }
-                },
-                "required": [
-                  "block_id",
-                  "children"
-                ],
-                "type": "object"
+                    {
+                      "oneOf": [
+                        {
+                          "not": {
+                            "anyOf": [
+                              { "required": ["body_b64"] },
+                              { "required": ["body_url"] },
+                              { "required": ["body_chunks"] },
+                              { "required": ["body"] }
+                            ]
+                          }
+                        },
+                        {
+                          "required": ["body_b64"],
+                          "not": {
+                            "anyOf": [
+                              { "required": ["body_url"] },
+                              { "required": ["body_chunks"] },
+                              { "required": ["body"] }
+                            ]
+                          }
+                        },
+                        {
+                          "required": ["body_url"],
+                          "not": {
+                            "anyOf": [
+                              { "required": ["body_b64"] },
+                              { "required": ["body_chunks"] },
+                              { "required": ["body"] }
+                            ]
+                          }
+                        },
+                        {
+                          "required": ["body_chunks"],
+                          "not": {
+                            "anyOf": [
+                              { "required": ["body_b64"] },
+                              { "required": ["body_url"] },
+                              { "required": ["body"] }
+                            ]
+                          }
+                        },
+                        {
+                          "required": ["body"],
+                          "not": {
+                            "anyOf": [
+                              { "required": ["body_b64"] },
+                              { "required": ["body_url"] },
+                              { "required": ["body_chunks"] }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "properties": {
+                    "after": {
+                      "description": "ID of an existing child to insert after",
+                      "type": "string"
+                    },
+                    "block_id": {
+                      "type": "string"
+                    },
+                    "body": {
+                      "deprecated": true,
+                      "description": "Raw markdown string. Use body_b64, body_url, or body_chunks instead. Unescaped Markdown may cause JSON parsing errors.",
+                      "type": "string"
+                    },
+                    "body_b64": {
+                      "contentEncoding": "base64",
+                      "contentMediaType": "text/markdown",
+                      "description": "Base64-encoded markdown content.",
+                      "example": "IyBIZWxsbyBNYXJrZG93biEKTGluZSAy",
+                      "type": "string"
+                    },
+                    "body_chunks": {
+                      "description": "Markdown content split into multiple chunks.",
+                      "example": [
+                        "IyBIZWxsbyBNYXJr",
+                        "ZG93biEKTGluZSAy"
+                      ],
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "body_url": {
+                      "description": "URL pointing to uploaded markdown file.",
+                      "example": "https://cdn.example.com/uploads/2025-08-11-hello.md",
+                      "format": "uri",
+                      "type": "string"
+                    },
+                    "children": {
+                      "items": {
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "chunk_encoding": {
+                      "description": "Encoding used for body_chunks. Required when body_chunks is provided.",
+                      "enum": [
+                        "base64",
+                        "plain"
+                      ],
+                      "example": "base64",
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "description": "ISO timestamp when payload was created.",
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "schema_version": {
+                      "description": "Schema version for the payload.",
+                      "example": "v1",
+                      "type": "string"
+                    },
+                    "trace_id": {
+                      "description": "Trace identifier for debugging.",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "block_id",
+                    "children"
+                  ],
+                  "type": "object"
+                }
+              },
+              "multipart/form-data": {
+                "schema": {
+                  "properties": {
+                    "file": {
+                      "description": "Markdown file upload",
+                      "format": "binary",
+                      "type": "string"
+                    },
+                    "metadata": {
+                      "contentMediaType": "application/json",
+                      "description": "JSON object with request fields and metadata.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
               }
-            }
+            },
+            "description": "Server processes body_b64 > body_url > body_chunks > body. Each field should be under ~900KB; total payload under ~2MB. Payloads exceeding limits may receive 413.",
+            "required": true
           },
-          "required": true
-        },
         "responses": {
           "200": {
             "description": "Updated block info"
