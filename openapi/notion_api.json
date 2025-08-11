@@ -1,0 +1,182 @@
+{
+  "info": {
+    "contact": {
+      "email": "support@example.com"
+    },
+    "description": "Modified to support n8n Webhook parsing. All parameters are wrapped in a 'body' object.",
+    "title": "Notion Custom API (Body Nested)",
+    "version": "1.0.2"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/createPage": {
+      "post": {
+        "description": "Create a new page inside a Notion database.",
+        "operationId": "createPage",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "database_id": "11111111-2222-3333-4444-555555555555",
+                "body": {
+                  "properties": {
+                    "Name": {
+                      "title": [
+                        {
+                          "text": {
+                            "content": "Sample Page"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "children": [
+                    {
+                      "object": "block",
+                      "paragraph": {
+                        "rich_text": [
+                          {
+                            "text": {
+                              "content": "Hello Notion!"
+                            },
+                            "type": "text"
+                          }
+                        ]
+                      },
+                      "type": "paragraph"
+                    }
+                  ]
+                }
+              },
+              "schema": {
+                "properties": {
+                  "body": {
+                    "properties": {
+                      "children": {
+                        "items": {
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "properties": {
+                        "type": "object"
+                      }
+                    },
+                    "required": [
+                      "properties"
+                    ],
+                    "type": "object"
+                  },
+                  "database_id": {
+                    "format": "uuid",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "database_id",
+                  "body"
+                ],
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "created_time": "2025-01-01T00:00:00.000Z",
+                  "id": "11111111-2222-3333-4444-666666666666",
+                  "object": "page",
+                  "parent": {
+                    "database_id": "11111111-2222-3333-4444-555555555555",
+                    "type": "database_id"
+                  },
+                  "properties": {
+                    "Name": {
+                      "title": [
+                        {
+                          "text": {
+                            "content": "Sample Page"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Created page details"
+          },
+          "400": {
+            "description": "Invalid request"
+          }
+        },
+        "summary": "Create a Notion-style page in a database (nested under 'body')",
+        "x-openai-isConsequential": false,
+        "x-openai-requiresUserConfirmation": false
+      }
+    },
+    "/getDB": {
+      "get": {
+        "description": "Retrieve details for a specific database.",
+        "operationId": "getDB",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "database_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "created_time": "2025-01-01T00:00:00.000Z",
+                  "id": "11111111-2222-3333-4444-555555555555",
+                  "object": "database",
+                  "properties": {
+                    "Name": {
+                      "type": "title"
+                    },
+                    "Status": {
+                      "type": "select"
+                    }
+                  },
+                  "title": [
+                    {
+                      "text": {
+                        "content": "Tasks"
+                      },
+                      "type": "text"
+                    }
+                  ]
+                }
+              }
+            },
+            "description": "Database details"
+          },
+          "400": {
+            "description": "Invalid request"
+          }
+        },
+        "summary": "Get database details",
+        "x-openai-isConsequential": false,
+        "x-openai-requiresUserConfirmation": false
+      }
+    }
+  },
+  "servers": [
+    {
+      "description": "Main API server",
+      "url": "https://n8n.qylab.kr/webhook"
+    }
+  ]
+}
